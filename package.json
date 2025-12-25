@@ -1,0 +1,35 @@
+{
+  "name": "ai-image-detector-api",
+  "version": "1.0.0",
+  "description": "Express API for detecting AI-generated images",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "ai",
+    "image-detection",
+    "express",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow-models/mobilenet": "^2.1.1",
+    "@tensorflow/tfjs-node": "^4.22.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.22.1",
+    "form-data": "^4.0.0",
+    "jpeg-js": "^0.4.4",
+    "multer": "^1.4.5-lts.1",
+    "node-cors": "^1.0.0",
+    "node-fetch": "^2.7.0",
+    "pngjs": "^7.0.0",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "Ai Detector",
+    "description": "Detect the theif",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "content_scripts": [
+        {
+            "js": [
+                "content.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ],
+            "css": [
+                "style.css"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "contextMenus",
+        "tabs"
+    ]
+}
