@@ -19,3 +19,8 @@
 //         "message": "This image has a 97.82% chance of being AI-generated"
 //     }
 // })
+
+
+git add .
+git commit -m 'v1.0.0'
+git push origin main

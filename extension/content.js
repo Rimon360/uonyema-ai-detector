@@ -1,4 +1,4 @@
-function createAIDetectionPopup(data) {
+function createAIDetectionPopup(data, src) {
 
     const isAI = data.analysis.isAIGenerated;
     const probability = data.analysis.aiProbability;
@@ -181,9 +181,11 @@ function createAIDetectionPopup(data) {
     </div>
     
     <div class="popup-content">
-      <div class="result-badge ${isAI ? 'badge-ai' : 'badge-human'}">
+          <div class="result-badge ${isAI ? 'badge-ai' : 'badge-human'}">
         ${isAI ? '⚠️ AI Generated' : '✓ Human Created'}
       </div>
+     <div style="display:flex; align-items:center;justify-content:center;margin-bottom:4px" ><img src='${src}' alt="preview img"/></div>
+
       
       <div class="probability-section">
         <div class="probability-label">${isAI ? 'AI' : 'Human'} Probability</div>
@@ -207,8 +209,7 @@ function createAIDetectionPopup(data) {
   `;
 
 }
-function createLoadingPopup() {
-
+function createLoadingPopup(isError = false, message = '') {
     return `
     <style>
       #ai-detection-loading {
@@ -247,8 +248,8 @@ function createLoadingPopup() {
         width: 40px;
         height: 40px;
         border: 3px solid #e5e7eb;
-        border-top-color: #3b82f6;
-        border-radius: 50%;
+        border-top-color: ${isError ? "#f63b3bff" : "#3b6df6ff"};
+        border-radius:${isError ? "100%" : "50%"};
         animation: spin 0.8s linear infinite;
       }
       
@@ -259,7 +260,7 @@ function createLoadingPopup() {
       .loading-text {
         font-size: 15px;
         font-weight: 500;
-        color: #374151;
+        color:${isError ? "#92394ddc" : "#374151"};
       }
       
       .progress-bar-container {
@@ -287,14 +288,16 @@ function createLoadingPopup() {
         }
       }
     </style>
-    
-    <div class="loading-content">
+    ${isError ? `<div class="loading-content"> 
+      <div class="loading-text">${message}</div> 
+    </div>`: `<div class="loading-content">
       <div class="loading-icon"></div>
       <div class="loading-text">Analyzing image...</div>
       <div class="progress-bar-container">
         <div class="progress-bar-fill"></div>
       </div>
-    </div>
+    </div>`}
+    
   `;
 
     return popup;
@@ -307,18 +310,23 @@ Aidiv.className = 'ai-detection-popup';
 chrome.runtime.onMessage.addListener((m, s, sr) => {
     document.querySelector('.ai-detection-popup')?.classList.remove("ai-hide")
     if (m.ref == 'ai_response') {
-        let htmlCode = createAIDetectionPopup(m.data);
+        let htmlCode = createAIDetectionPopup(m.data, m.src);
         let aiResultContainer = document.querySelector('.ai-detection-popup')
         aiResultContainer.id = 'ai-detection-popup';
         aiResultContainer.innerHTML = htmlCode;
         let aiCloseButton = document.querySelector(".aiclose-btn");
-        console.log(aiCloseButton);
 
         aiCloseButton?.addEventListener('click', () => document.querySelector('.ai-detection-popup').classList.add("ai-hide"))
     } else if (m.ref === 'analyzing') {
         let container = document.querySelector('.ai-detection-popup')
         container.innerHTML = ''
         let htmlCode = createLoadingPopup()
+        container.id = 'ai-detection-loading';
+        container.innerHTML = htmlCode;
+    } else if (m.ref == 'ai_response_error') {
+        let container = document.querySelector('.ai-detection-popup')
+        container.innerHTML = ''
+        let htmlCode = createLoadingPopup(true, m.message)
         container.id = 'ai-detection-loading';
         container.innerHTML = htmlCode;
     }
