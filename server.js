@@ -7,7 +7,7 @@ const cors = require("cors")
 const dotenv = require('dotenv')
 dotenv.config()
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 // Configure multer for file uploads
 const upload = multer({
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 });
 
 // AI Image Detection endpoint
-app.post('/api/detect-ai-image', upload.single('image'), async (req, res) => {
+app.post('/detect-ai-image', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -123,7 +123,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`🚀 AI Image Detector API running on port ${PORT}`);
   console.log(`📡 Health check: http://localhost:${PORT}/`);
-  console.log(`🔍 Detection endpoint: http://localhost:${PORT}/api/detect-ai-image`);
+  console.log(`🔍 Detection endpoint: http://localhost:${PORT}/detect-ai-image`);
 
   // Create uploads directory if it doesn't exist
   if (!fs.existsSync('uploads')) {
