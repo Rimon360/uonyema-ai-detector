@@ -1,6 +1,6 @@
 // bg.js
-// const API_ROUTE = "https://api.ai-detect.io"
-const API_ROUTE = 'http://localhost:8000';
+const API_ROUTE = "https://api.ai-detect.io"
+// const API_ROUTE = 'http://localhost:8000';
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "capture-image",
