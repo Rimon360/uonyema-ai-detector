@@ -10,13 +10,14 @@ function createAIDetectionPopup(data, src) {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        width: 340px;
+        width: 310px;
         background: #ffffff;
         border-radius: 12px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        z-index: 2147483647;
+        z-index: 214748364007;
         animation: slideIn 0.3s ease-out;
+        overflow:hidden;
       }
       
       @keyframes slideIn {
@@ -184,11 +185,11 @@ function createAIDetectionPopup(data, src) {
           <div class="result-badge ${isAI ? 'badge-ai' : 'badge-human'}">
         ${isAI ? '⚠️ AI Generated' : '✓ Human Created'}
       </div>
-     <div style="display:flex; align-items:center;justify-content:center;margin-bottom:4px" ><img src='${src}' alt="preview img"/></div>
+     <div style="display:flex; align-items:center;justify-content:center;margin-bottom:4px" ><img style='max-height:150px' src='${src}' alt="preview img"/></div>
 
       
       <div class="probability-section">
-        <div class="probability-label">${isAI ? 'AI' : 'Human'} Probability</div>
+        <div class="probability-label">${isAI ? 'AI Image' : 'AI Image'} Probability</div>
         <div class="probability-value">${probability}%</div>
         <span class="confidence-tag">${confidence} Confidence</span>
       </div>
@@ -298,9 +299,7 @@ function createLoadingPopup(isError = false, message = '') {
       </div>
     </div>`}
     
-  `;
-
-    return popup;
+  `; 
 }
 
 let Aidiv = document.createElement('div');

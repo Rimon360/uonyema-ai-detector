@@ -4,7 +4,7 @@ const API_ROUTE = "https://api.ai-detect.io"
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "capture-image",
-    title: "Capture Image",
+    title: "ai-detector",
     contexts: ["image", "video"],
   })
 })
